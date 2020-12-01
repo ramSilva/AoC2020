@@ -258,10 +258,7 @@ fun generic(): Int {
             val newAcum = arrayListOf<List<Int>>()
             for (x in actualInput) {
                 for (a in acum) {
-                    val temp = arrayListOf<Int>()
-                    for(it in a) {
-                        temp.add(it)
-                    }
+                    val temp = a.toMutableList()
                     temp.add(x)
 
                     newAcum.add(temp)
