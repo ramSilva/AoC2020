@@ -1,3 +1,5 @@
+package puzzle1
+
 val input = arrayOf(
     1587,
     1407,
