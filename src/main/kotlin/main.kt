@@ -1,6 +1,7 @@
 import puzzle3.solvePuzzle3
 import puzzle3.solvePuzzle3dot1
 import puzzle3.solvePuzzle3dot1MasComplicado
+import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
     println("Puzzle 3: ${solvePuzzle3()}")

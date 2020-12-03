@@ -110,7 +110,9 @@ fun solvePuzzle3dot1MasComplicado(): Int {
     while (true) {
         tobogganRecords
             .filter { record -> !record.hasFinished }
-            .also { records -> if (records.isEmpty()) allToboggansFinished = true }
+            .also { records ->
+                if (records.isEmpty()) allToboggansFinished = true
+            }
             .forEach { record ->
                 record.position.row += record.toboggan.row
                 record.position.column += record.toboggan.column
