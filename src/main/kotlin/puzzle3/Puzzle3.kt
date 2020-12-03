@@ -54,7 +54,7 @@ fun solvePuzzle3(): Int {
 fun solvePuzzle3dot1(): Int {
     val mountain = parseInput("input.txt")
 
-    val toboggans = arrayListOf<Toboggan>(
+    val toboggans = arrayListOf(
         Toboggan(1, 1),
         Toboggan(1, 3),
         Toboggan(1, 5),
@@ -84,4 +84,49 @@ fun solvePuzzle3dot1(): Int {
     }
 
     return encounteredTreesPerToboggan.reduce { acc, trees -> acc * trees }
+}
+
+data class TobogganRecord(
+    val toboggan: Toboggan,
+    val position: Position = Position(0, 0),
+    var encounteredTrees: Int = 0,
+    var hasFinished: Boolean = false
+)
+
+fun solvePuzzle3dot1MasComplicado(): Int {
+    val mountain = parseInput("input.txt")
+
+    val tobogganRecords = arrayListOf(
+        TobogganRecord(Toboggan(1, 1)),
+        TobogganRecord(Toboggan(1, 3)),
+        TobogganRecord(Toboggan(1, 5)),
+        TobogganRecord(Toboggan(1, 7)),
+        TobogganRecord(Toboggan(2, 1)),
+    )
+
+    val lowestTree = mountain.trees.last().row
+    var allToboggansFinished = false
+
+    while (true) {
+        tobogganRecords
+            .filter { record -> !record.hasFinished }
+            .also { records -> if (records.isEmpty()) allToboggansFinished = true }
+            .forEach { record ->
+                record.position.row += record.toboggan.row
+                record.position.column += record.toboggan.column
+
+                if (record.position.row > lowestTree) {
+                    record.hasFinished = true
+                }
+
+                if (record.position.column >= mountain.width) record.position.column -= mountain.width
+                if (mountain.trees.contains(record.position)) record.encounteredTrees++
+            }
+
+        if (allToboggansFinished) break
+    }
+
+    return tobogganRecords
+        .map { record -> record.encounteredTrees }
+        .reduce { acc, trees -> acc * trees }
 }
