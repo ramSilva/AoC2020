@@ -3,12 +3,15 @@ import puzzle3.solvePuzzle3dot1
 import puzzle3.solvePuzzle3dot1MasComplicado
 import puzzle4.solvePuzzle4
 import puzzle4.solvePuzzle4dot1
+import puzzle5.solvePuzzle5mesmoàMacho
 import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
 
-    println("Puzzle 4: ${solvePuzzle4()}")
-    println("Puzzle 4.1: ${solvePuzzle4dot1()}")
+    println("Puzzle 5 mesmo à macho: ${solvePuzzle5mesmoàMacho()}")
+
+    //println("Puzzle 4: ${solvePuzzle4()}")
+    //println("Puzzle 4.1: ${solvePuzzle4dot1()}")
 
 //    println("Puzzle 3: ${solvePuzzle3()}")
 //    println("Puzzle 3.1: ${solvePuzzle3dot1()}")
