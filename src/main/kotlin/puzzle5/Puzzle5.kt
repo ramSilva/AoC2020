@@ -12,7 +12,7 @@ fun solvePuzzle5mesmoàMacho() =
         .also { println("Puzzle 5.1: ${it.first + 1}") }
 
 
-fun solvePuzzle5paraMeninas(): Int? {
+fun solvePuzzle5paraMeninas() {
     val seats = File(f).readLines()
 
     val seatCodes = arrayListOf<Int>()
@@ -46,6 +46,8 @@ fun solvePuzzle5paraMeninas(): Int? {
         seatCodes.add(maxR * 8 + maxC)
     }
 
+    println("Puzzle 5: ${seatCodes.maxOrNull()}")
+
     var ourSeat = 0
 
     seatCodes.sort()
@@ -57,5 +59,5 @@ fun solvePuzzle5paraMeninas(): Int? {
         }
     }
 
-    return ourSeat
+    println("Puzzle 5.1: $ourSeat")
 }
