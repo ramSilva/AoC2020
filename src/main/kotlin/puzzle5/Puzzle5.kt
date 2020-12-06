@@ -6,7 +6,7 @@ const val f = "input/puzzle5/input.txt"
 
 fun solvePuzzle5mesmoàMacho() =
     File(f).readLines()
-        .map { it.fold("") { a, c -> a + if (c == 'B' || c == 'R') "1" else "0" }.toInt(2) }
+        .map { it.fold("") { a, c -> a + if (c in "BR") "1" else "0" }.toInt(2) }
         .also { println("Puzzle 5: ${it.maxOrNull()}") }
         .sorted().zipWithNext().first { it.first != it.second - 1 }
         .also { println("Puzzle 5.1: ${it.first + 1}") }
