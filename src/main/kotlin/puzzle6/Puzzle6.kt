@@ -2,13 +2,13 @@ package puzzle6
 
 import java.io.File
 
-private const val f = "input/puzzle6/input.txt"
+private const val f = "input/puzzle6/testInput.txt"
 
 fun solvePuzzle6() =
     File(f).readText().split("\n\n").sumBy { it.filter { it != '\n' }.toSet().size }
 
 fun solvePuzzle6dot1() =
-    File(f).readText().split("\n\n").sumBy{it.split("\n").reduce{a,s->a.filter{it in s}}.length}
+    File(f).readText().split("\n\n").sumBy { it.lines().reduce { a, s -> a.filter { it in s } }.length }
 
 fun solvePuzzle6LikeABoss(): Int {
     val groups = File(f).readText().split("\n\n")
