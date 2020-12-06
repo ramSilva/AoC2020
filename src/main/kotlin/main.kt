@@ -6,12 +6,18 @@ import puzzle4.solvePuzzle4dot1
 import puzzle5.solvePuzzle5mesmoàMacho
 import puzzle5.solvePuzzle5paraMeninas
 import puzzle6.solvePuzzle6
+import puzzle6.solvePuzzle6LikeABoss
+import puzzle6.solvePuzzle6dot1
+import puzzle6.solvePuzzle6dot1LikeABoss
 import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
 
     println("Puzzle6: ${solvePuzzle6()}")
-    println("Puzzle 5 mesmo à macho: ${solvePuzzle5mesmoàMacho()}")
+    println("Puzzle6.1: ${solvePuzzle6dot1()}")
+    println("Puzzle6LikeAboss: ${solvePuzzle6LikeABoss()}")
+    println("Puzzle6.1LikeAboss: ${solvePuzzle6dot1LikeABoss()}")
+    //println("Puzzle 5 mesmo à macho: ${solvePuzzle5mesmoàMacho()}")
     //solvePuzzle5paraMeninas()
 
     //println("Puzzle 4: ${solvePuzzle4()}")
