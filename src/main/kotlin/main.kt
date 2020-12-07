@@ -13,7 +13,8 @@ import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
 
-    println("Puzzle7: ${solvePuzzle7()}")
+    //println("Puzzle7: ${solvePuzzle7()}")
+    println("Puzzle7.1: ${solvePuzzle7dot1()}")
 //    println("Puzzle6: ${solvePuzzle6()}")
 //    println("Puzzle6.1: ${solvePuzzle6dot1()}")
 //    println("Puzzle6LikeAboss: ${solvePuzzle6LikeABoss()}")
