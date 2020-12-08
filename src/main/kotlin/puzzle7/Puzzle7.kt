@@ -1,4 +1,5 @@
-import java.awt.Color
+package puzzle7
+
 import java.io.File
 
 typealias Bag = String
