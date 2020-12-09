@@ -34,7 +34,6 @@ fun solvePuzzle8(): Int {
     }
 }
 
-
 fun solvePuzzle8dot1(): Int {
     val lines = File(f).readText().split('\n')
 
@@ -62,6 +61,7 @@ fun solvePuzzle8dot1(): Int {
         val visitedLines = arrayListOf<Int>()
         while (true) {
             if (currentLine == alteredLines.size) {
+                println(currentlyChangedLine)
                 return accumulator
             }
 
@@ -88,4 +88,64 @@ fun solvePuzzle8dot1(): Int {
             }
         }
     }
+}
+
+
+
+typealias Line = Int
+
+fun solvePuzzle8dot1Recursive(): Int {
+    val lines = File(f).readText().split('\n')
+
+    val accumulator = mutableListOf<Int>()
+    getPath(lines, lines.size, accumulator)
+    return accumulator.sum()
+}
+
+fun getPath(
+    input: List<String>,
+    target: Line,
+    accumulator: MutableList<Int>,
+    visitedLines: MutableList<Line> = arrayListOf(),
+    hasFixed: Boolean = false
+): Boolean {
+    if (target == 0) {
+        return true
+    }
+    input.forEachIndexed { i, l ->
+        val (operation, argument) = l.split(' ')
+
+        var success = false
+        if (!visitedLines.contains(i)) {
+            if (operation == "jmp" && target == i + argument.toInt()) {
+                visitedLines.add(i)
+                success = getPath(input, i, accumulator, visitedLines, hasFixed)
+            }
+            if (!success && operation == "nop" && target == i + 1) {
+                visitedLines.add(i)
+                success = getPath(input, i, accumulator, visitedLines, hasFixed)
+            }
+            if (!success && operation == "acc" && target == i + 1) {
+                visitedLines.add(i)
+                accumulator.add(argument.toInt())
+                success = getPath(input, i, accumulator, visitedLines, hasFixed)
+                if (!success) {
+                    accumulator.remove(argument.toInt())
+                }
+            }
+            if (!success && !hasFixed && operation == "nop" && target == i + argument.toInt()) {
+                visitedLines.add(i)
+                success = getPath(input, i, accumulator, visitedLines, true)
+            }
+            if (!success && !hasFixed && operation == "jmp" && target == i + 1) {
+                visitedLines.add(i)
+                success = getPath(input, i, accumulator, visitedLines, true)
+            }
+            if (success) {
+                return true
+            }
+            visitedLines.remove(i)
+        }
+    }
+    return false
 }
