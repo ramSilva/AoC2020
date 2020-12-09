@@ -13,13 +13,17 @@ import puzzle7.solvePuzzle7dot1
 import puzzle8.solvePuzzle8
 import puzzle8.solvePuzzle8dot1
 import puzzle8.solvePuzzle8dot1Recursive
+import puzzle9.solvePuzzle9
+import puzzle9.solvePuzzle9dot1
 import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
 
+    println("Puzzle9: ${solvePuzzle9dot1()}")
+//    println("Puzzle9: ${solvePuzzle9()}")
 //    println("Puzzle8: ${solvePuzzle8()}")
-    println("Puzzle8: ${solvePuzzle8dot1()}")
-    println("Puzzle8: ${solvePuzzle8dot1Recursive()}")
+//    println("Puzzle8: ${measureTimeMillis { solvePuzzle8dot1() }}")
+//    println("Puzzle8: ${measureTimeMillis { solvePuzzle8dot1Recursive() }}")
     //println("Puzzle7: ${solvePuzzle7()}")
     //println("Puzzle7.1: ${solvePuzzle7dot1()}")
 //    println("Puzzle6: ${solvePuzzle6()}")
