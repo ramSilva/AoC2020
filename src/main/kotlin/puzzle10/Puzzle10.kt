@@ -40,7 +40,7 @@ inline fun <T> Iterable<T>.sumByLong(selector: (T) -> Long): Long {
     return sum
 }
 
-class Node(val value: Int) {
+class Node {
     private val parents = mutableListOf<Node>()
 
     var alternatives: Long = 1
@@ -57,11 +57,12 @@ fun solvePuzzle10dot1(): Long {
 
     val graph = sortedMapOf<Int, Node>()
 
-    val initialNode = Node(0)
-    graph[0] = initialNode
+    graph[0] = Node()
+
+    println(lines)
 
     lines.forEach { line ->
-        val node = Node(line)
+        val node = Node()
         graph[line] = node
 
         for (i in (line - 3) until line) {
