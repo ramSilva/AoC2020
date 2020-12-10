@@ -2,7 +2,7 @@ package puzzle10
 
 import java.io.File
 
-const val f = "input/puzzle10/input.txt"
+const val f = "input/puzzle10/testInput.txt"
 
 fun solvePuzzle10(): Int {
     val lines = File(f).readLines().map { it.toInt() }.sorted()
@@ -61,17 +61,10 @@ fun solvePuzzle10dot1(): Long {
     graph[0] = initialNode
 
     lines.forEach { line ->
-        val node: Node
-        if (graph[line] != null) {
-            node = graph[line]!!
-        } else {
-            node = Node(line)
-            graph[line] = node
-        }
-
+        val node = Node(line)
+        graph[line] = node
 
         for (i in (line - 3) until line) {
-            println(i)
             if (graph[i] == null) {
                 continue
             }
