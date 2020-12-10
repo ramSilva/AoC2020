@@ -1,8 +1,9 @@
 package puzzle10
 
 import java.io.File
+import java.util.*
 
-const val f = "input/puzzle10/input.txt"
+const val f = "input/puzzle10/testInput.txt"
 
 fun solvePuzzle10(): Int {
     val lines = File(f).readLines().map { it.toInt() }.sorted()
@@ -40,35 +41,22 @@ inline fun <T> Iterable<T>.sumByLong(selector: (T) -> Long): Long {
     return sum
 }
 
-class Node {
-    private val parents = mutableListOf<Node>()
-
-    var alternatives: Long = 1
-
-    fun addParent(node: Node) {
-        parents.add(node)
-
-        alternatives = parents.sumByLong { it.alternatives }
-    }
-}
-
 fun solvePuzzle10dot1(): Long {
     val lines = File(f).readLines().map { it.toInt() }.sorted()
 
-    val graph = sortedMapOf<Int, Node>()
-    graph[0] = Node()
+    val graph = TreeMap<Int, Long>()
+    graph[0] = 1
 
     lines.forEach { line ->
-        val node = Node()
-        graph[line] = node
+        graph[line] = 0
 
         for (i in (line - 3) until line) {
-            if (graph[i] == null) {
-                continue
-            }
-            node.addParent(graph[i]!!)
+            graph[line] = graph[line]!! + (graph[i] ?: 0)
         }
     }
 
-    return graph[graph.lastKey()!!]!!.alternatives
+    return graph.lastEntry().value
 }
+
+fun solvePuzzle10dot1EmChines() =
+    File(f).readLines().map{it.toInt()}.sorted().fold(TreeMap(mapOf(Pair(0,1L)))){a,v->a[v]=0;for(i in v-3 until v)a[v]=(a[i]?:0)+a[v]!!;a}.lastEntry().value
