@@ -47,43 +47,33 @@ fun solvePuzzle14dot1(): Long {
     val input = File(f).readLines()
 
     val mem = TreeMap<Long, Long>()
-    var andMasks = mutableListOf<Long>()
-    var orMasks = mutableListOf<Long>()
+    var andMasks = listOf<Long>()
+    var orMasks = listOf<Long>()
     input.forEach {
         if (it[1] == 'a') {
             val regex = Regex(""".*= (\w+)""")
             val (mask) = regex.find(it)!!.destructured
 
-            andMasks.clear()
-            orMasks.clear()
-            andMasks.add(1L)
-            orMasks.add(0L)
+            andMasks = listOf(1L)
+            orMasks = listOf(0L)
 
             mask.forEach { char ->
                 andMasks = andMasks.map {
                     it * 2 + 1
-                }.toMutableList()
+                }
                 orMasks = orMasks.map {
-                    it * 2
-                }.toMutableList()
+                    it * 2 + if (char == '1') 1 else 0
+                }
 
                 if (char == 'X') {
-                    val newAndMasks = arrayListOf<Long>()
-                    andMasks.forEach {
-                        newAndMasks.add(it - 1)
+                    andMasks = andMasks.flatMap {
+                        listOf(it, it - 1)
                     }
-                    andMasks.addAll(newAndMasks)
-
-                    val newOrMasks = arrayListOf<Long>()
-                    orMasks.forEach {
-                        newOrMasks.add(it + 1)
-
+                    orMasks = orMasks.flatMap {
+                        listOf(it, it + 1)
                     }
-                    orMasks.addAll(newOrMasks)
                 }
-                if (char == '1') {
-                    orMasks = orMasks.map { it + 1 }.toMutableList()
-                }
+
             }
         } else {
             val regex = Regex(""".*\[(\d+)\] = (\d+)""")
