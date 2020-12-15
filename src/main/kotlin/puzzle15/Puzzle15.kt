@@ -36,29 +36,17 @@ fun solvePuzzle15dot1(): Int {
     }
 
     for (i in spokenNumbers.size until 30000000) {
-        val currentNumberPositions = spokenNumbers[numberToLookFor]!!.filter {
+        numberToLookFor = i - 1 - (spokenNumbers[numberToLookFor]!!.lastOrNull {
             it != i - 1
-        }
-        if (currentNumberPositions.isEmpty()) {
-            if (spokenNumbers[0] != null) {
-                if (spokenNumbers[0]!!.size > 1) {
-                    spokenNumbers[0]!!.removeFirst()
-                }
-                spokenNumbers[0]!!.add(i)
-            } else {
-                spokenNumbers[0] = arrayListOf(i)
+        } ?: i - 1)
+
+        if (spokenNumbers[numberToLookFor] != null) {
+            if (spokenNumbers[numberToLookFor]!!.size > 1) {
+                spokenNumbers[numberToLookFor]!!.removeFirst()
             }
-            numberToLookFor = 0
+            spokenNumbers[numberToLookFor]!!.add(i)
         } else {
-            numberToLookFor = i - 1 - currentNumberPositions.last()
-            if (spokenNumbers[numberToLookFor] != null) {
-                if (spokenNumbers[numberToLookFor]!!.size > 1) {
-                    spokenNumbers[numberToLookFor]!!.removeFirst()
-                }
-                spokenNumbers[numberToLookFor]!!.add(i)
-            } else {
-                spokenNumbers[numberToLookFor] = arrayListOf(i)
-            }
+            spokenNumbers[numberToLookFor] = arrayListOf(i)
         }
     }
 
