@@ -1,6 +1,7 @@
 package puzzle15
 
 import java.io.File
+import java.util.*
 
 const val f = "input/puzzle15/input.txt"
 
@@ -26,28 +27,21 @@ fun solvePuzzle15(): Int {
 }
 
 fun solvePuzzle15dot1(): Int {
-    val spokenNumbers = mutableMapOf<Int, MutableList<Int>>()
+    val spokenNumbers = mutableMapOf<Int, Int>()
 
-    var numberToLookFor = 0
-
-    File(f).readText().split(',').forEachIndexed { i, v ->
-        spokenNumbers[v.toInt()] = mutableListOf(i)
-        numberToLookFor = v.toInt()
-    }
-
-    for (i in spokenNumbers.size until 30000000) {
-        numberToLookFor = i - 1 - (spokenNumbers[numberToLookFor]!!.lastOrNull {
-            it != i - 1
-        } ?: i - 1)
-
-        if (spokenNumbers[numberToLookFor] != null) {
-            if (spokenNumbers[numberToLookFor]!!.size > 1) {
-                spokenNumbers[numberToLookFor]!!.removeFirst()
+    var numberToLookFor = File(f).readText().split(',')
+        .map { it.toInt() }
+        .also {
+            it.dropLast(1).forEachIndexed { i, v ->
+                spokenNumbers[v] = i
             }
-            spokenNumbers[numberToLookFor]!!.add(i)
-        } else {
-            spokenNumbers[numberToLookFor] = arrayListOf(i)
-        }
+        }.last()
+
+    for (i in spokenNumbers.size until 30000000 - 1) {
+        val nextNumberToLookFor = i - (spokenNumbers[numberToLookFor] ?: i)
+        spokenNumbers[numberToLookFor] = i
+
+        numberToLookFor = nextNumberToLookFor
     }
 
     return numberToLookFor
