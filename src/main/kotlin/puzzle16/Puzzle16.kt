@@ -35,7 +35,10 @@ fun solvePuzzle16(): Int {
     return invalidValues.sum()
 }
 
-data class ExtendedRule(val name: String, val option1: Pair<Int, Int>, val option2: Pair<Int, Int>)
+data class ExtendedRule(val name: String, val option1: Pair<Int, Int>, val option2: Pair<Int, Int>) {
+    fun isValueValid(value: Int) =
+        value >= option1.first && value <= option1.second || value >= option2.first && value <= option2.second
+}
 
 fun solvePuzzle16dot1(): Long {
     val (rulesText, myTicketString, nearbyTickets) = File(f).readText().split("\n\n")
@@ -53,52 +56,55 @@ fun solvePuzzle16dot1(): Long {
         rules.add(ExtendedRule(name, Pair(r1.toInt(), r2.toInt()), Pair(r3.toInt(), r4.toInt())))
     }
 
-    val rulesIndexes = mutableMapOf<Int, MutableList<Int>>()
+    val rulesIndexes = mutableMapOf<Int, MutableList<Int>>() //rulesIndexes[rule] = valueIndex
 
-    nearbyTickets.split('\n').drop(1).filter { ticket ->
-        ticket.split(',').map { it.toInt() }.count { value ->
+    val validTickets = nearbyTickets.split('\n').drop(1).filter { ticket ->
+        val values = ticket.split(',').map { it.toInt() }
+
+        values.count { value ->
             rules.count { rule ->
-                value >= rule.option1.first && value <= rule.option1.second || value >= rule.option2.first && value <= rule.option2.second
+                rule.isValueValid(value)
             } > 0
-        } == ticket.split(',').size
-    }.forEach {
-        it.split(',').map { it.toInt() }.map { value ->
-            val possibleRulesIndex = arrayListOf<Int>()
-            rules.forEachIndexed { ruleIndex, rule ->
-                if (value >= rule.option1.first && value <= rule.option1.second || value >= rule.option2.first && value <= rule.option2.second) {
-                    possibleRulesIndex.add(ruleIndex)
-                }
-            }
-            possibleRulesIndex
-        }.forEachIndexed { i, possibleRule ->
-            rulesIndexes[i] =
-                if (rulesIndexes[i] != null) possibleRule.filter { rulesIndexes[i]!!.contains(it) }.toMutableList()
-                else possibleRule
+        } == rules.size
+    }
 
-            while (true) {
-                var changedKeys = false
-                rulesIndexes.forEach { (k, v) ->
-                    if (v.size == 1) {
-                        rulesIndexes.forEach { (k2, v2) ->
-                            if (k != k2) {
-                                changedKeys = v2.removeAll(v)
-                            }
-                        }
-                    }
+    rules.forEachIndexed { ruleIndex, rule ->
+        rulesIndexes[ruleIndex] = mutableListOf()
+        rulesIndexes[ruleIndex]!!.addAll(validTickets[0].split(',').indices)
+
+        validTickets.forEach { ticket ->
+            val values = ticket.split(',').map { it.toInt() }
+            val possibleIndices = arrayListOf<Int>()
+            values.forEachIndexed { valueIndex, value ->
+                if (rule.isValueValid(value)) {
+                    possibleIndices.add(valueIndex)
                 }
-                if (!changedKeys) break
             }
+
+            rulesIndexes[ruleIndex] = possibleIndices.filter { rulesIndexes[ruleIndex]!!.contains(it) }.toMutableList()
         }
     }
 
-    println(rulesIndexes)
+    while (true) {
+        var changedValues = false
+        rulesIndexes.forEach { (k, v) ->
+            if (v.size == 1) {
+                rulesIndexes.forEach { (k2, v2) ->
+                    if (k != k2 && v2.containsAll(v)) {
+                        changedValues = v2.removeAll(v)
+                    }
+                }
+            }
+        }
+
+        if (!changedValues) break
+    }
+
+
     var returnValue = 1L
 
-    rules.forEachIndexed { i, v ->
-        returnValue *= if (v.name.contains("departure")) {
-            myTicket[rulesIndexes.filterKeys { rulesIndexes[it]!!.first() == i }.keys.first()]
-        } else 1
-    }
+    rules.filter { it.name.contains("departure") }
+        .forEachIndexed { i, _ -> returnValue *= myTicket[rulesIndexes[i]!!.first()] }
 
     return returnValue
 }
