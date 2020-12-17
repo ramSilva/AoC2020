@@ -29,12 +29,12 @@ fun solvePuzzle17(): Int {
 
 
     for (i in 0 until 6) {
-        val minX = cubePositions.fold(0) { acc, coordinate -> if (coordinate.x < acc) coordinate.x else acc }
-        val maxX = cubePositions.fold(0) { acc, coordinate -> if (coordinate.x > acc) coordinate.x else acc }
-        val minY = cubePositions.fold(0) { acc, coordinate -> if (coordinate.y < acc) coordinate.y else acc }
-        val maxY = cubePositions.fold(0) { acc, coordinate -> if (coordinate.y > acc) coordinate.y else acc }
-        val minZ = cubePositions.fold(0) { acc, coordinate -> if (coordinate.z < acc) coordinate.z else acc }
-        val maxZ = cubePositions.fold(0) { acc, coordinate -> if (coordinate.z > acc) coordinate.z else acc }
+        val minX = cubePositions.minByOrNull { it.x }!!.x
+        val maxX = cubePositions.maxByOrNull { it.x }!!.x
+        val minY = cubePositions.minByOrNull { it.y }!!.y
+        val maxY = cubePositions.maxByOrNull { it.y }!!.y
+        val minZ = cubePositions.minByOrNull { it.z }!!.z
+        val maxZ = cubePositions.maxByOrNull { it.z }!!.z
 
         val cubePositionsCopy = cubePositions.toMutableList()
 
@@ -90,16 +90,15 @@ fun solvePuzzle17dot1(): Int {
         }
     }
 
-
     for (i in 0 until 6) {
-        val minX = cubePositions.fold(0) { acc, coordinate -> if (coordinate.x < acc) coordinate.x else acc }
-        val maxX = cubePositions.fold(0) { acc, coordinate -> if (coordinate.x > acc) coordinate.x else acc }
-        val minY = cubePositions.fold(0) { acc, coordinate -> if (coordinate.y < acc) coordinate.y else acc }
-        val maxY = cubePositions.fold(0) { acc, coordinate -> if (coordinate.y > acc) coordinate.y else acc }
-        val minZ = cubePositions.fold(0) { acc, coordinate -> if (coordinate.z < acc) coordinate.z else acc }
-        val maxZ = cubePositions.fold(0) { acc, coordinate -> if (coordinate.z > acc) coordinate.z else acc }
-        val minW = cubePositions.fold(0) { acc, coordinate -> if (coordinate.w < acc) coordinate.w else acc }
-        val maxW = cubePositions.fold(0) { acc, coordinate -> if (coordinate.w > acc) coordinate.w else acc }
+        val minX = cubePositions.minByOrNull { it.x }!!.x
+        val maxX = cubePositions.maxByOrNull { it.x }!!.x
+        val minY = cubePositions.minByOrNull { it.y }!!.y
+        val maxY = cubePositions.maxByOrNull { it.y }!!.y
+        val minZ = cubePositions.minByOrNull { it.z }!!.z
+        val maxZ = cubePositions.maxByOrNull { it.z }!!.z
+        val minW = cubePositions.minByOrNull { it.w }!!.w
+        val maxW = cubePositions.maxByOrNull { it.w }!!.w
 
         val cubePositionsCopy = cubePositions.toMutableList()
 
