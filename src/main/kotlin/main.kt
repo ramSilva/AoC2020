@@ -15,6 +15,8 @@ import puzzle16.solvePuzzle16
 import puzzle16.solvePuzzle16dot1
 import puzzle17.solvePuzzle17
 import puzzle17.solvePuzzle17dot1
+import puzzle18.solvePuzzle18
+import puzzle18.solvePuzzle18dot1
 import puzzle3.solvePuzzle3
 import puzzle3.solvePuzzle3dot1
 import puzzle3.solvePuzzle3dot1MasComplicado
@@ -36,8 +38,10 @@ import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
 
-    println("Puzzle17: ${solvePuzzle17()}")
-    println("Puzzle17.1: ${solvePuzzle17dot1()}")
+    println("Puzzle18: ${solvePuzzle18()}")
+    println("Puzzle18.1: ${solvePuzzle18dot1()}")
+//    println("Puzzle17: ${solvePuzzle17()}")
+//    println("Puzzle17.1: ${solvePuzzle17dot1()}")
 //    println("Puzzle16: ${solvePuzzle16()}")
 //    println("Puzzle16.1: ${solvePuzzle16dot1()}")
 //    println("Puzzle15: ${solvePuzzle15()}")
